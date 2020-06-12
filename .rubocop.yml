@@ -12,3 +12,8 @@
 require:
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rake
+  - rubocop-rspec
+
+inherit_from:
+  - '.rubocop-local-overrides.yml'

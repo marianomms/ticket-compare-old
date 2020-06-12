@@ -1,6 +1,6 @@
 set -e
-docker-compose up -d
+
 echo
 ./bin/webpack --bail
 echo
-bundle exec rails s
+bundle exec rails s -b 0.0.0.0

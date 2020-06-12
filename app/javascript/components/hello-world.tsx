@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { List } from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { getThings } from '../actions';
 import RecordStateApp from '../types/record-state-app';
-import { List } from 'immutable';
 import RecordThing from '../types/record-thing';
 
 interface IOwnProps {
@@ -28,6 +28,7 @@ const HelloWorld: React.FunctionComponent<Props> = (props: Props) => {
       <button
         className='getThingsBtn'
         onClick={ () => props.getThings() }
+        type='button'
       >
         getThings
       </button>

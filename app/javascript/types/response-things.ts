@@ -1,4 +1,4 @@
-import { IThing } from "./record-thing";
+import { IThing } from './record-thing';
 
 /**
  * Response from things API

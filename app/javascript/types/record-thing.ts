@@ -8,7 +8,6 @@ export interface IThing {
   name: string;
 }
 
-
 const defaultState = Record<IThing>({
   guid: '',
   name: ''
