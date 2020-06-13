@@ -8,8 +8,8 @@ const getThingsSuccess = (data: IResponseThings): IActionGetThingsSuccess => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const getThings = (): any => {
-  return (dispatch: Dispatch<IActionGetThingsSuccess>): any => {
+export const getThings = (): unknown => {
+  return (dispatch: Dispatch<IActionGetThingsSuccess>) => {
     fetch('api/v1/things.json')
       .then((response) => response.json())
       .then((data) => dispatch(getThingsSuccess(data)))
