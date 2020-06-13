@@ -5,10 +5,13 @@
     "lint": "eslint app/javascript --ext js --ext jsx --ext ts --ext tsx"
   },
   "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.1.1",
+    "fontsource-roboto": "^2.1.4",
     "immutable": "^4.0.0-rc.12",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

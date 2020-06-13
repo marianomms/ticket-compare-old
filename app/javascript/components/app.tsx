@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import HelloWorld from './hello-world';
 import configureStore from '../store';
+import Main from './main';
 
 const store = configureStore();
 
@@ -14,7 +15,7 @@ const App: React.FunctionComponent = () => (
         <Route
           exact
           path='/'
-          render={ () => ('soy el home!!!') }
+          render={ () => <Main /> }
         />
         <Route
           exact
