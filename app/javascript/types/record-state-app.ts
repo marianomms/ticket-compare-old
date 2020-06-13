@@ -1,12 +1,15 @@
 import { Record } from 'immutable';
 import RecordStateThing from './record-state-things';
+import RecordStateTicket from './record-state-ticket';
 
 interface IStateApp {
-  thingsState: RecordStateThing
+  thingsState: RecordStateThing,
+  ticketState: RecordStateTicket
 }
 
 const defaultState = Record<IStateApp>({
-  thingsState: new RecordStateThing()
+  thingsState: new RecordStateThing(),
+  ticketState: new RecordStateTicket()
 });
 
 /**

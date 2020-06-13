@@ -14,6 +14,6 @@ const defaultState = Record<IThing>({
 });
 
 /**
- * Class for record  thing
+ * Class for record thing
  */
 export default class RecordThing extends defaultState implements IThing {}

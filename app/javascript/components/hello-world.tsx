@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { getThings } from '../actions';
+import { getThings } from '../actions/things';
 import RecordStateApp from '../types/record-state-app';
 import RecordThing from '../types/record-thing';
 

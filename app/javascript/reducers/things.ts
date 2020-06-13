@@ -14,9 +14,7 @@ const toListLineItems = (response: IResponseThings): List<RecordThing> => {
   return List<RecordThing>(records);
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const thingsReducer = (state: RecordStateThing = initialState, action: TypeAction): RecordStateThing => {
-  console.log(action.type);
+export default (state: RecordStateThing = initialState, action: TypeAction): RecordStateThing => {
   switch (action.type) {
     case GET_THINGS_SUCCESS:
       return state.set('things', toListLineItems(action.data));

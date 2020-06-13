@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'things', to: 'things#index'
 
-      resources :tickets, only: [:show]
+      resources :tickets, only: [:show] do
+        member do
+          get 'image', to: 'tickets#image'
+        end
+      end
     end
   end
 
