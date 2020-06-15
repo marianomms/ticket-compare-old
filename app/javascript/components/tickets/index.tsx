@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { CircularProgress } from '@material-ui/core';
+
 import { initDebug } from '../../common/debug';
 import { RecordTicket } from '../../types/record-ticket';
 import RecordStateApp from '../../types/record-state-app';
@@ -25,6 +27,11 @@ const mapDispatchToProps = { getTicketData };
 type Props = IOwnProps & IStateProps & typeof mapDispatchToProps;
 
 const Ticket: React.FunctionComponent<Props> = (props: Props) => {
+  const { ticket } = props;
+
+  debug('Render Component: Ticket');
+  debug(props);
+
   React.useEffect(() => {
     if (!props.loaded) {
       props.getTicketData(props.id);
@@ -32,10 +39,14 @@ const Ticket: React.FunctionComponent<Props> = (props: Props) => {
   }, [props.loaded]);
 
   const divStyle = {
+    width: ticket.width,
+    height: ticket.height,
+    backgroundImage: `url(${ticket.url})`,
+    backgroundRepeat: 'no-repeat'
   };
   return (
     <div style={ divStyle }>
-      { props.loaded ? `hola soy el ticke1111t nº: ${props.id}` : 'cargando' }
+      { props.loaded ? `hola soy el ticke1111t nº: ${props.id}` : <CircularProgress /> }
     </div>
   );
 };

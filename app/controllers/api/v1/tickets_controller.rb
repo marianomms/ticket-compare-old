@@ -18,14 +18,16 @@ module Api
 
       def show
         render json: {
-          width: ticket_image.dimensions[0],
-          height: ticket_image.dimensions[1],
-          url: image_api_v1_ticket_path
+          ticket: {
+            width: prepared_ticket_image.width,
+            height: prepared_ticket_image.height,
+            url: image_api_v1_ticket_path
+          }
         }
       end
 
       def image
-        send_data(prepare_and_read_ticket,
+        send_data(prepare_ticket.read,
                   type: 'image/jpg',
                   disposition: 'inline')
       end
@@ -36,13 +38,16 @@ module Api
         @ticket_image ||= MiniMagick::Image.new(TICKET_IMAGE_PATH)
       end
 
-      def prepare_and_read_ticket
+      def prepared_ticket_image
+        @prepared_ticket_image ||= MiniMagick::Image.new(prepare_ticket.path)
+      end
+
+      def prepare_ticket
         ImageProcessing::MiniMagick
           .source(ticket_image)
           .quality(100)
           .resize_to_limit(MAX_WIDTH, MAX_HEIGHT)
           .call
-          .read
       end
     end
   end

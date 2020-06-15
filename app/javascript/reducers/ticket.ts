@@ -8,14 +8,14 @@ const initialState = new RecordStateTicket();
 
 type TypeAction = IActionGetTicketData;
 
-const toTicket = (data: IResponseTicket): RecordTicket => {
-  return new RecordTicket(data);
+const toRecordTicket = (data: IResponseTicket): RecordTicket => {
+  return new RecordTicket(data.ticket);
 };
 
 export default (state: RecordStateTicket = initialState, action: TypeAction): RecordStateTicket => {
   switch (action.type) {
     case GET_TICKET_DATA:
-      return state.set('ticket', toTicket(action.data))
+      return state.set('ticket', toRecordTicket(action.data))
         .set('loaded', true);
     default:
       return state;
