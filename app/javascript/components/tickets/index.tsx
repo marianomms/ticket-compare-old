@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { CircularProgress } from '@material-ui/core';
 
 import { initDebug } from '../../common/debug';
-import { RecordTicket } from '../../types/record-ticket';
+import { RecordTicket } from '../../types/record-ticket';
 import RecordStateApp from '../../types/record-state-app';
 import getTicketData from '../../actions/ticket';
 
@@ -36,7 +36,18 @@ const Ticket: React.FunctionComponent<Props> = (props: Props) => {
     if (!props.loaded) {
       props.getTicketData(props.id);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.loaded]);
+
+  const generateBounds = () => {
+    const a = ticket;
+    console.log(a);
+    debugger;
+
+    return (
+      <div>hola</div>
+    );
+  };
 
   const divStyle = {
     width: ticket.width,
@@ -46,7 +57,7 @@ const Ticket: React.FunctionComponent<Props> = (props: Props) => {
   };
   return (
     <div style={ divStyle }>
-      { props.loaded ? `hola soy el ticke1111t nº: ${props.id}` : <CircularProgress /> }
+      { props.loaded ? generateBounds() : <CircularProgress /> }
     </div>
   );
 };

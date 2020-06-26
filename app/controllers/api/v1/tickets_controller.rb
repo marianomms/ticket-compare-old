@@ -8,20 +8,23 @@ module Api
     # Controller for tickets
     #
     class TicketsController < ApplicationController
-      TICKET_NAME = 'aldi_ticket_vertical_1.jpg'
+      TICKET_NAME = 'ticket_partial_vertical'
       # TICKET_NAME = 'ticket_partial_vertical.jpg'
-      TICKET_IMAGE_PATH = "app/assets/images/tickets/#{TICKET_NAME}"
-      TICKET_JSON_PATH = "app/assets/json/tickets/#{TICKET_NAME}"
+      TICKET_IMAGE_PATH = "app/assets/images/tickets/#{TICKET_NAME}.jpg"
+      TICKET_JSON_PATH = "app/assets/json/tickets/#{TICKET_NAME}.json"
 
       MAX_HEIGHT = nil
       MAX_WIDTH = 800
 
       def show
+        sleep 1.second
         render json: {
           ticket: {
-            width: prepared_ticket_image.width,
+            bounds: ticket_bounds,
+            factor: factor,
             height: prepared_ticket_image.height,
-            url: image_api_v1_ticket_path
+            url: image_api_v1_ticket_path,
+            width: prepared_ticket_image.width
           }
         }
       end
@@ -33,6 +36,18 @@ module Api
       end
 
       private
+
+      def ticket_bounds
+        info = TicketCompare::TicketInformation.new(json_path: TICKET_JSON_PATH)
+        info.obtain[:blocks]
+      end
+
+      #
+      # Return reduction factor applied in the image from the original size
+      #
+      def factor
+        ticket_image.width.fdiv(prepared_ticket_image.width) / 100
+      end
 
       def ticket_image
         @ticket_image ||= MiniMagick::Image.new(TICKET_IMAGE_PATH)
@@ -46,8 +61,9 @@ module Api
         ImageProcessing::MiniMagick
           .source(ticket_image)
           .quality(100)
-          .resize_to_limit(MAX_WIDTH, MAX_HEIGHT)
           .call
+
+          # .resize_to_limit(MAX_WIDTH, MAX_HEIGHT)
       end
     end
   end
