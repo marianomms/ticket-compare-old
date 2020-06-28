@@ -10,6 +10,12 @@ module TicketCompare
     KEYS = %i[blocks paragraphs words symbols].freeze
     private_constant :KEYS
 
+    attr_reader :reduction_factor
+
+    def initialize(reduction_factor:)
+      @reduction_factor = reduction_factor
+    end
+
     #
     # Returns a hash with the `blocks` `paragraphs` `words` `symbols`
     #
@@ -47,6 +53,10 @@ module TicketCompare
       return if bounding_box.blank?
 
       bounding_box.guid = SecureRandom.uuid
+      bounding_box.vertices.each do |vert|
+        vert.x /= reduction_factor
+        vert.y /= reduction_factor
+      end
       bounding_box
     end
 

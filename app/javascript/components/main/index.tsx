@@ -13,7 +13,7 @@ const Main: React.FunctionComponent = () => {
       <ThemeProvider theme={ theme }>
         <Container>
           <h1>hola soy una cabecera</h1>
-          <Ticket id='1' />
+          <Ticket ticketId='1' />
         </Container>
       </ThemeProvider>
     </>

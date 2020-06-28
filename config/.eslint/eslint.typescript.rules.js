@@ -36,7 +36,8 @@ function eslintConfigGenerator() {
         "selector": "typeLike",
         "format": ["PascalCase"]
       }
-    ]
+    ],
+    "react/prop-types": 0
   };
 
   return { ...eslintRules, ...rules };

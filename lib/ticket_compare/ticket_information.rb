@@ -5,10 +5,11 @@ module TicketCompare
   # Class to obtain the information about a ticket
   #
   class TicketInformation
-    attr_reader :json_path
+    attr_reader :json_path, :reduction_factor
 
-    def initialize(json_path:)
+    def initialize(json_path:, reduction_factor:)
       @json_path = json_path
+      @reduction_factor = reduction_factor
     end
 
     def obtain
@@ -19,7 +20,7 @@ module TicketCompare
     private
 
     def ticket_bounds
-      @ticket_bounds ||= TicketBounds.new
+      @ticket_bounds ||= TicketBounds.new(reduction_factor: reduction_factor)
     end
   end
 end
