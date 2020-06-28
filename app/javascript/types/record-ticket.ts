@@ -1,22 +1,22 @@
 import { Record } from 'immutable';
 
-interface IPosition {
-  x: number;
-  y: number;
-}
+// interface IPosition {
+//   x: number;
+//   y: number;
+// }
 
-interface IVertice {
-  table: IPosition;
-}
+// interface IVertice {
+//   table: IPosition;
+// }
 
-interface ITable {
-  vertices: IVertice[];
-  guid: string;
-}
+// interface ITable {
+//   vertices: IVertice[];
+//   guid: string;
+// }
 
-interface IBound {
-  table: ITable
-}
+// interface IBound {
+//   table: ITable
+// }
 
 /**
  * Represents a ticket
@@ -25,7 +25,8 @@ export interface ITicket {
   /**
    * Bound for the ticket
    */
-  bounds: IBound[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bounds: any,
   /**
    * Ticket image width
    */

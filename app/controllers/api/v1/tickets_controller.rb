@@ -37,7 +37,7 @@ module Api
 
       def ticket_bounds
         info = TicketCompare::TicketInformation.new(json_path: TICKET_JSON_PATH, reduction_factor: reduction_factor)
-        info.obtain[:words]
+        info.obtain
       end
 
       #
