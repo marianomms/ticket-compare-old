@@ -2,7 +2,7 @@ import React from 'react';
 import {
   createMuiTheme, ThemeProvider, Container, CssBaseline
 } from '@material-ui/core';
-import Ticket from '../tickets';
+import Ticket from '../ticket';
 
 const theme = createMuiTheme();
 

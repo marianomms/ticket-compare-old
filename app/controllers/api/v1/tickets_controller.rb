@@ -19,7 +19,7 @@ module Api
       def show
         render json: {
           ticket: {
-            bounds: ticket_bounds,
+            bounds: ticket_blocks,
             height: prepared_ticket_image.height,
             url: image_api_v1_ticket_path,
             width: prepared_ticket_image.width
@@ -35,9 +35,9 @@ module Api
 
       private
 
-      def ticket_bounds
+      def ticket_blocks
         info = TicketCompare::TicketInformation.new(json_path: TICKET_JSON_PATH, reduction_factor: reduction_factor)
-        info.obtain
+        info.obtain_blocks
       end
 
       #

@@ -2,7 +2,10 @@ import React from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Konva from 'konva';
 
+import { initDebug } from '../../../common/debug';
 import { ITicket } from '../../../types/record-ticket';
+
+const debug = initDebug('components/ticket/bound-box/index.tsx');
 
 interface IOwnProps {
   /**
@@ -14,27 +17,8 @@ interface IOwnProps {
 const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
   const { ticket } = props;
 
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const handleClick = (evt: any) => {
-  //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  //   const { target }: { target: Konva.Line } = evt;
-
-  //   eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  //   let stroke = target.getAttr('old-stroke');
-  //   if (!stroke) {
-  //     stroke = 'blue';
-  //     target.setAttr('old-stroke', target.stroke());
-  //   } else {
-  //     target.setAttr('old-stroke', undefined);
-  //   }
-
-  //   // target.stroke(stroke);
-  //   target.strokeWidth(2);
-  //   target.parent?.draw();
-  // };
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleMouseEnter = (evt: any) => {
+  const handleLineMouseEnter = (evt: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { target }: { target: Konva.Line } = evt;
     target.strokeWidth(3);
@@ -42,10 +26,19 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleMouseLeave = (evt: any) => {
+  const handleLineMouseLeave = (evt: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { target }: { target: Konva.Line } = evt;
     target.strokeWidth(1);
+    target.parent?.draw();
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleLineClick = (evt: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { target }: { target: Konva.Line } = evt;
+    debug(`Line click on: ${target.attrs.guid}`);
+    target.strokeWidth(10);
     target.parent?.draw();
   };
 
@@ -55,16 +48,16 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
   /* eslint-disable @typescript-eslint/no-unsafe-return */
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const generateBoundsFor = (type: 'blocks' | 'words' | 'paragraphs' | 'symbols', color: string) => {
-    const bounds = ticket.bounds[type];
+    const bounds = ticket.bounds[type] || ticket.bounds;
 
     const positions = bounds.map((bound: any) => {
       let result = Array<number>();
-      bound.table.vertices.forEach((vertice: any) => {
-        result = result.concat(vertice.table.x);
-        result = result.concat(vertice.table.y);
+      bound.vertices.forEach((vertice: any) => {
+        result = result.concat(vertice.x);
+        result = result.concat(vertice.y);
       });
       return {
-        guid: bound.table.guid,
+        guid: bound.guid,
         points: result
       };
     });
@@ -72,13 +65,15 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
     return positions.map((pos: any) => {
       return (
         <Line
+          guid={ pos.guid }
           key={ pos.guid }
           points={ pos.points }
           closed
           stroke={ color }
           strokeWidth={ 1 }
-          onMouseEnter={ handleMouseEnter }
-          onMouseLeave={ handleMouseLeave }
+          onMouseEnter={ handleLineMouseEnter }
+          onMouseLeave={ handleLineMouseLeave }
+          onClick={ handleLineClick }
         />
       );
     });
@@ -94,7 +89,7 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
       <Layer>
         { generateBoundsFor('blocks', 'red') }
         {/* { generateBoundsFor('paragraphs', ticket, 'blue') } */ }
-        { generateBoundsFor('words', 'green') }
+        {/* { generateBoundsFor('words', 'green') } */ }
         {/* { generateBoundsFor('symbols', ticket, 'orange') } */ }
       </Layer>
     </Stage>

@@ -13,11 +13,18 @@ module TicketCompare
     end
 
     def obtain
-      json = JsonParser.parse(json_path: json_path)
-      ticket_bounds.get(response: json)
+      ticket_bounds.get(json: json)
+    end
+
+    def obtain_blocks
+      ticket_bounds.get_blocks(json: json)
     end
 
     private
+
+    def json
+      @json ||= JsonParser.parse(json_path: json_path)
+    end
 
     def ticket_bounds
       @ticket_bounds ||= TicketBounds.new(reduction_factor: reduction_factor)

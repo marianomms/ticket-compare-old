@@ -11,7 +11,15 @@ module TicketCompare
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    config.autoload_paths << Rails.root.join('lib').to_s
+    # Rails Override pattern using zeitwerk
+    # https://edgeguides.rubyonrails.org/engines.html#overriding-models-and-controllers
+    overrides = Rails.root.join('app/lib/overrides').to_s
+    Rails.autoloaders.main.ignore(overrides)
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*.rb").each do |override|
+        load override
+      end
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

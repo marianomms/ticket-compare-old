@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'securerandom'
-
 module TicketCompare
   #
-  # Class to obtain bounds in a given response
+  # Class to obtain bounds
   #
   class TicketBounds
     KEYS = %i[blocks paragraphs words symbols].freeze
@@ -17,14 +15,31 @@ module TicketCompare
     end
 
     #
-    # Returns a hash with the `blocks` `paragraphs` `words` `symbols`
+    # Returns a hast with the blocks information
     #
-    # @param [OpenStruct] response Contains the json from the OCR
+    # @param [OpenStruct] json Contains the json from the OCR
     #
     # @return [Hash]
     #
-    def get(response:)
-      hash = get_elements(element: response, child: :pages, keys: KEYS)
+    def get_blocks(json:)
+      hash = init_hash(:blocks)
+      hash[:blocks] = json.pages.first.blocks.map do |block|
+        box = bounding_box(block.boundingBox)
+        box.guid = block.guid
+        box
+      end
+      hash
+    end
+
+    #
+    # Returns a hash with the `blocks` `paragraphs` `words` `symbols`
+    #
+    # @param [OpenStruct] json Contains the json from the OCR
+    #
+    # @return [Hash]
+    #
+    def get(json:)
+      hash = get_elements(element: json, child: :pages, keys: KEYS)
       hash.delete(:pages)
       hash
     end
@@ -52,7 +67,6 @@ module TicketCompare
     def bounding_box(bounding_box)
       return if bounding_box.blank?
 
-      bounding_box.guid = SecureRandom.uuid
       bounding_box.vertices.each do |vert|
         vert.x /= reduction_factor
         vert.y /= reduction_factor

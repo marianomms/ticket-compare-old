@@ -9,7 +9,7 @@ import { RecordTicket } from '../../types/record-ticket';
 import RecordStateApp from '../../types/record-state-app';
 import getTicketData from '../../actions/ticket';
 
-const debug = initDebug('Ticket');
+const debug = initDebug('components/ticket/index.tsx');
 
 interface IOwnProps {
   /**
