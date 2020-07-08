@@ -8,10 +8,7 @@ module Api
     # Controller for tickets
     #
     class TicketsController < ApplicationController
-      TICKET_NAME = 'ticket_partial_vertical'
-      # TICKET_NAME = 'ticket_partial_vertical.jpg'
-      TICKET_IMAGE_PATH = "app/assets/images/tickets/#{TICKET_NAME}.jpg"
-      TICKET_JSON_PATH = "app/assets/json/tickets/#{TICKET_NAME}.json"
+      include TicketCompare::TicketInformation
 
       MAX_HEIGHT = nil
       MAX_WIDTH = 800
@@ -19,7 +16,7 @@ module Api
       def show
         render json: {
           ticket: {
-            bounds: ticket_blocks,
+            bounds: ticket_bounds.blocks,
             height: prepared_ticket_image.height,
             url: image_api_v1_ticket_path,
             width: prepared_ticket_image.width
@@ -35,9 +32,8 @@ module Api
 
       private
 
-      def ticket_blocks
-        info = TicketCompare::TicketInformation.new(json_path: TICKET_JSON_PATH, reduction_factor: reduction_factor)
-        info.obtain_blocks
+      def ticket_bounds
+        @ticket_bounds ||= TicketCompare::TicketBounds.new(json: json, reduction_factor: reduction_factor)
       end
 
       #

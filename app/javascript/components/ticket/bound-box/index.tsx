@@ -15,6 +15,8 @@ interface IOwnProps {
 }
 
 const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
+  debug('Render Component: BoundBox');
+
   const { ticket } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,9 +90,9 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
     <Stage width={ ticket.width } height={ ticket.height }>
       <Layer>
         { generateBoundsFor('blocks', 'red') }
-        {/* { generateBoundsFor('paragraphs', ticket, 'blue') } */ }
-        {/* { generateBoundsFor('words', 'green') } */ }
-        {/* { generateBoundsFor('symbols', ticket, 'orange') } */ }
+        {/* { generateBoundsFor('paragraphs', 'blue') } */}
+        {/* { generateBoundsFor('words', 'green') } */}
+        {/* { generateBoundsFor('symbols', 'orange') } */}
       </Layer>
     </Stage>
   );
