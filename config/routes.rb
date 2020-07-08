@@ -11,13 +11,16 @@ Rails.application.routes.draw do
         member do
           get 'image', to: 'tickets#image'
         end
+        resources :blocks, only: [:none] do
+          resources :words, only: [:index]
+        end
       end
     end
   end
 
   # Rails send all requests that are not for the API to our App component (via StaticController#index)
-  get '*pages', to: 'static#index', constraints: ->(req) do
+  get '*pages', to: 'static#index', constraints: lambda { |req|
     !req.xhr? && req.format.html?
-  end
+  }
   root 'static#index'
 end

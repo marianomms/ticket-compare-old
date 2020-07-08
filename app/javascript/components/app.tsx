@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { enableDebug } from '../common/debug';
+import Main from 'app/components/main';
+import { enableDebug } from 'app/common/debug';
+import configureStore from 'app/store';
 import HelloWorld from './hello-world';
-import configureStore from '../store';
-import Main from './main';
 
 enableDebug();
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Konva from 'konva';
 
-import { initDebug } from '../../../common/debug';
-import { ITicket } from '../../../types/record-ticket';
+import { initDebug } from 'app/common/debug';
+import { ITicket } from 'app/types/record-ticket';
 
 const debug = initDebug('components/ticket/bound-box/index.tsx');
 
@@ -14,7 +14,9 @@ interface IOwnProps {
   ticket: ITicket
 }
 
-const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
+const BoundBoxes: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
+  debug('Render Component: BoundBox');
+
   const { ticket } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,12 +90,12 @@ const BoundBox: React.FunctionComponent<IOwnProps> = (props: IOwnProps) => {
     <Stage width={ ticket.width } height={ ticket.height }>
       <Layer>
         { generateBoundsFor('blocks', 'red') }
-        {/* { generateBoundsFor('paragraphs', ticket, 'blue') } */ }
-        {/* { generateBoundsFor('words', 'green') } */ }
-        {/* { generateBoundsFor('symbols', ticket, 'orange') } */ }
+        {/* { generateBoundsFor('paragraphs', 'blue') } */}
+        {/* { generateBoundsFor('words', 'green') } */}
+        {/* { generateBoundsFor('symbols', 'orange') } */}
       </Layer>
     </Stage>
   );
 };
 
-export default BoundBox;
+export default BoundBoxes;

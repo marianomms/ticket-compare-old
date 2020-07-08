@@ -2,9 +2,9 @@ import React from 'react';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { getThings } from '../actions/things';
-import RecordStateApp from '../types/record-state-app';
-import RecordThing from '../types/record-thing';
+import { getThings } from 'app/actions/things';
+import RecordStateApp from 'app/types/record-state-app';
+import RecordThing from 'app/types/record-thing';
 
 interface IOwnProps {
   greeting: string;

@@ -1,9 +1,9 @@
 import { List } from 'immutable';
-import RecordStateThing from '../types/record-state-things';
-import { IActionGetThingsSuccess } from '../types/actions-things';
-import { IResponseThings } from '../types/response-things';
-import RecordThing from '../types/record-thing';
-import { GET_THINGS_SUCCESS } from '../types/constants';
+import RecordStateThing from 'app/types/record-state-things';
+import { IActionGetThingsSuccess } from 'app/types/actions-things';
+import { IResponseThings } from 'app/types/response-things';
+import RecordThing from 'app/types/record-thing';
+import { GET_THINGS_SUCCESS } from 'app/types/constants';
 
 const initialState = new RecordStateThing();
 

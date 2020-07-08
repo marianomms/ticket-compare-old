@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { CircularProgress } from '@material-ui/core';
 
-import BoundBox from './bound-box';
-import { initDebug } from '../../common/debug';
-import { RecordTicket } from '../../types/record-ticket';
-import RecordStateApp from '../../types/record-state-app';
-import getTicketData from '../../actions/ticket';
+import { initDebug } from 'app/common/debug';
+import { RecordTicket } from 'app/types/record-ticket';
+import RecordStateApp from 'app/types/record-state-app';
+import getTicketData from 'app/actions/ticket';
+
+import BoundBoxes from './bound-boxes';
 
 const debug = initDebug('components/ticket/index.tsx');
 
@@ -48,7 +49,7 @@ const Ticket: React.FunctionComponent<Props> = (props: Props) => {
   };
   return (
     <div style={ divStyle }>
-      { props.loaded ? <BoundBox ticket={ ticket } /> : <CircularProgress /> }
+      { props.loaded ? <BoundBoxes ticket={ ticket } /> : <CircularProgress /> }
     </div>
   );
 };

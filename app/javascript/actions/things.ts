@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
-import { GET_THINGS_SUCCESS } from '../types/constants';
-import { IActionGetThingsSuccess } from '../types/actions-things';
-import { IResponseThings } from '../types/response-things';
+import { GET_THINGS_SUCCESS } from 'app/types/constants';
+import { IActionGetThingsSuccess } from 'app/types/actions-things';
+import { IResponseThings } from 'app/types/response-things';
 
 const getThingsSuccess = (data: IResponseThings): IActionGetThingsSuccess => {
   return { type: GET_THINGS_SUCCESS, data };

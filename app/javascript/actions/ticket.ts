@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
-import { IActionGetTicketData } from '../types/actions-ticket';
-import { IResponseTicket } from '../types/response-ticket';
-import { GET_TICKET_DATA } from '../types/constants';
+import { IActionGetTicketData } from 'app/types/actions-ticket';
+import { IResponseTicket } from 'app/types/response-ticket';
+import { GET_TICKET_DATA } from 'app/types/constants';
 
 const getTicketDataDispatch = (data: IResponseTicket): IActionGetTicketData => {
   return { type: GET_TICKET_DATA, data };

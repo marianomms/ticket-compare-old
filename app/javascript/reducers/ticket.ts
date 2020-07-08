@@ -1,8 +1,8 @@
-import RecordStateTicket from '../types/record-state-ticket';
-import { IActionGetTicketData } from '../types/actions-ticket';
-import { GET_TICKET_DATA } from '../types/constants';
-import { IResponseTicket } from '../types/response-ticket';
-import { RecordTicket } from '../types/record-ticket';
+import RecordStateTicket from 'app/types/record-state-ticket';
+import { IActionGetTicketData } from 'app/types/actions-ticket';
+import { GET_TICKET_DATA } from 'app/types/constants';
+import { IResponseTicket } from 'app/types/response-ticket';
+import { RecordTicket } from 'app/types/record-ticket';
 
 const initialState = new RecordStateTicket();
 

@@ -4,14 +4,15 @@ module TicketCompare
   #
   # Class to obtain bounds
   #
-  class TicketBounds
+  class TicketBounds < TicketBase
     KEYS = %i[blocks paragraphs words symbols].freeze
     private_constant :KEYS
 
     attr_reader :reduction_factor
 
-    def initialize(reduction_factor:)
+    def initialize(json:, reduction_factor:)
       @reduction_factor = reduction_factor
+      super(json: json)
     end
 
     #
@@ -21,14 +22,16 @@ module TicketCompare
     #
     # @return [Hash]
     #
-    def get_blocks(json:)
-      hash = init_hash(:blocks)
-      hash[:blocks] = json.pages.first.blocks.map do |block|
-        box = bounding_box(block.boundingBox)
-        box.guid = block.guid
-        box
+    def blocks
+      @blocks ||= begin
+        hash = init_hash(:blocks)
+        hash[:blocks] = first_page_for.blocks.map do |block|
+          box = bounding_box(block.boundingBox)
+          box.guid = block.guid
+          box
+        end
+        hash
       end
-      hash
     end
 
     #
@@ -38,10 +41,12 @@ module TicketCompare
     #
     # @return [Hash]
     #
-    def get(json:)
-      hash = get_elements(element: json, child: :pages, keys: KEYS)
-      hash.delete(:pages)
-      hash
+    def all
+      @all ||= begin
+        hash = get_elements(element: json, child: :pages, keys: KEYS)
+        hash.delete(:pages)
+        hash
+      end
     end
 
     private

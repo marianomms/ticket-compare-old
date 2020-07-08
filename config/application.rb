@@ -13,11 +13,15 @@ module TicketCompare
 
     # Rails Override pattern using zeitwerk
     # https://edgeguides.rubyonrails.org/engines.html#overriding-models-and-controllers
-    overrides = Rails.root.join('app/lib/overrides').to_s
-    Rails.autoloaders.main.ignore(overrides)
-    config.to_prepare do
-      Dir.glob("#{overrides}/**/*.rb").each do |override|
-        load override
+    overrides = [
+      Rails.root.join('app/lib/overrides').to_s
+    ]
+    overrides.each do |folder|
+      Rails.autoloaders.main.ignore(folder)
+      config.to_prepare do
+        Dir.glob("#{folder}/**/*.rb").each do |override|
+          load override
+        end
       end
     end
 
