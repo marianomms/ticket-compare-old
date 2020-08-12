@@ -1,5 +1,16 @@
 const GET_THINGS_SUCCESS = 'GET_THINGS_SUCCESS';
 
 const GET_TICKET_DATA = 'GET_TICKET_DATA';
+const SET_SELECTION_STEP = 'SET_SELECTION_STEP';
+const SET_SELECTION_TYPE = 'SET_SELECTION_TYPE';
 
-export { GET_THINGS_SUCCESS, GET_TICKET_DATA };
+const BLOCKS_COLOR = {
+  products: 'limegreen',
+  prices: 'lime',
+  market: 'yellowgreen',
+  pending: 'red'
+};
+
+export {
+  GET_THINGS_SUCCESS, GET_TICKET_DATA, BLOCKS_COLOR, SET_SELECTION_STEP, SET_SELECTION_TYPE
+};
