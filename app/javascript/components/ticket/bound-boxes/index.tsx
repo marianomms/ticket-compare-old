@@ -7,9 +7,9 @@ import { initDebug } from 'app/common/debug';
 import { RecordTicket } from 'app/types/record-ticket';
 import RecordStateApp from 'app/types/record-state-app';
 import { connect } from 'react-redux';
-import { BLOCKS_COLOR } from 'app/types/constants';
 import { setSelectionStep, setSelectionType } from 'app/actions/ticket';
 import SelectionStep from 'app/types/enums';
+import BlockColors from 'app/types/block-colors';
 
 const debug = initDebug('components/ticket/bound-box/index.tsx');
 
@@ -35,6 +35,12 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
   const handleLineMouseEnter = (evt: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { target }: { target: Konva.Line } = evt;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (target.attrs.stroke !== BlockColors.pending) {
+      return;
+    }
+
     target.strokeWidth(2);
     target.parent?.draw();
   };
@@ -43,6 +49,12 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
   const handleLineMouseLeave = (evt: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { target }: { target: Konva.Line } = evt;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (target.attrs.stroke !== BlockColors.pending) {
+      return;
+    }
+
     target.strokeWidth(1);
     target.parent?.draw();
   };
@@ -51,6 +63,11 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
   const handleLineClick = (evt: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { target }: { target: Konva.Line } = evt;
+
+    const step = SelectionStep[props.selectionStep];
+    if (!step) {
+      return;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     props.setSelectionType(target.attrs.guid, props.selectionStep);
@@ -62,10 +79,10 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
   /* eslint-disable @typescript-eslint/no-unsafe-call */
   /* eslint-disable @typescript-eslint/no-unsafe-return */
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  const generateBoundsFor = (type: 'blocks' | 'words' | 'paragraphs' | 'symbols', color: string) => {
-    const bounds = ticket.bounds[type] || ticket.bounds;
+  const generateBoundsFor = () => {
+    const { blocks } = ticket;
 
-    const positions = bounds.map((bound: any) => {
+    const positions = blocks.map((bound: any) => {
       let result = Array<number>();
       bound.vertices.forEach((vertice: any) => {
         result = result.concat(vertice.x);
@@ -78,6 +95,19 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
     });
 
     return positions.map((pos: any) => {
+      let color = BlockColors.pending;
+      let strokeWidth = 1;
+      if (props.market === pos.guid) {
+        color = BlockColors.market;
+        strokeWidth = 3;
+      } else if (props.prices === pos.guid) {
+        color = BlockColors.prices;
+        strokeWidth = 3;
+      } else if (props.products === pos.guid) {
+        color = BlockColors.products;
+        strokeWidth = 3;
+      }
+
       return (
         <Line
           guid={ pos.guid }
@@ -85,7 +115,7 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
           points={ pos.points }
           closed
           stroke={ color }
-          strokeWidth={ 1 }
+          strokeWidth={ strokeWidth }
           onMouseEnter={ handleLineMouseEnter }
           onMouseLeave={ handleLineMouseLeave }
           onClick={ handleLineClick }
@@ -108,7 +138,7 @@ const BoundBoxes: React.FunctionComponent<Props> = (props: Props) => {
     <div style={ divTicketStyle }>
       <Stage width={ ticket.width } height={ ticket.height }>
         <Layer>
-          { generateBoundsFor('blocks', BLOCKS_COLOR.pending) }
+          { generateBoundsFor() }
         </Layer>
       </Stage>
     </div>

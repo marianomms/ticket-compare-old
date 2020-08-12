@@ -19,8 +19,16 @@ export default (state: RecordStateTicket = initialState, action: TypeAction): Re
       return state.set('ticket', toRecordTicket(action.data))
         .set('ticketId', action.data.ticketId)
         .set('loadedTicket', true);
-    case SET_SELECTION_STEP:
-      return state.set('selectionStep', action.step);
+    case SET_SELECTION_STEP: {
+      let newState = state;
+      if (action.step === 0) {
+        // reset all values
+        newState = state.set('market', '')
+          .set('prices', '')
+          .set('products', '');
+      }
+      return newState.set('selectionStep', action.step);
+    }
     case SET_SELECTION_TYPE: {
       const type = SelectionStep[action.data.type] as 'market' | 'prices' | 'products';
       return state.set(type, action.data.id);

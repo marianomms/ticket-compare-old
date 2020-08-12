@@ -16,9 +16,9 @@ const defaultState = Record<IStateTicket>({
   loadedTicket: false,
   ticket: new RecordTicket(),
   ticketId: '',
-  market: 'aaa',
-  prices: 'bbb',
-  products: 'ccc',
+  market: '',
+  prices: '',
+  products: '',
   selectionStep: SelectionStep.market
 });
 

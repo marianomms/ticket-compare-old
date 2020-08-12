@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
-  actionsContainer: {
-    marginBottom: theme.spacing(2)
-  },
   resetContainer: {
     padding: theme.spacing(3)
   }
@@ -72,10 +69,6 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
     props.setSelectionStep(props.selectionStep + 1);
   };
 
-  const handleBack = () => {
-    props.setSelectionStep(props.selectionStep - 1);
-  };
-
   const handleReset = () => {
     props.setSelectionStep(SelectionStep.market);
   };
@@ -91,25 +84,6 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
             <StepLabel>{ label }</StepLabel>
             <StepContent>
               <Typography>{ getStepContent(index) }</Typography>
-              <div className={ classes.actionsContainer }>
-                <div>
-                  <Button
-                    disabled={ props.selectionStep === 0 }
-                    onClick={ handleBack }
-                    className={ classes.button }
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={ handleNext }
-                    className={ classes.button }
-                  >
-                    { props.selectionStep === steps.length - 1 ? 'Finish' : 'Next' }
-                  </Button>
-                </div>
-              </div>
             </StepContent>
           </Step>
         )) }
@@ -120,10 +94,20 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
           elevation={ 0 }
           className={ classes.resetContainer }
         >
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={ handleReset } className={ classes.button }>
-            Reset
-          </Button>
+          <Typography>Todas las áreas selecionadas. Casi hemos terminado.</Typography>
+          <div>
+            <Button onClick={ handleReset } className={ classes.button }>
+              Reset
+            </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={ handleNext }
+              className={ classes.button }
+            >
+              Finalizar
+            </Button>
+          </div>
         </Paper>
       ) }
     </div>

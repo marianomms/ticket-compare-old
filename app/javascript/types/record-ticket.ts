@@ -26,7 +26,7 @@ export interface ITicket {
    * Bound for the ticket
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bounds: any,
+  blocks: any,
   /**
    * Ticket image width
    */
@@ -42,7 +42,7 @@ export interface ITicket {
 }
 
 const defaultState = Record<ITicket>({
-  bounds: [],
+  blocks: [],
   width: 0,
   height: 0,
   url: ''

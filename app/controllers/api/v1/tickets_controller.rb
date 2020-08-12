@@ -16,7 +16,7 @@ module Api
       def show
         render json: {
           ticket: {
-            bounds: ticket_bounds.blocks,
+            blocks: ticket_bounds.blocks,
             height: prepared_ticket_image.height,
             url: image_api_v1_ticket_path,
             width: prepared_ticket_image.width

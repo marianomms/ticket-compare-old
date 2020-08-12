@@ -24,13 +24,11 @@ module TicketCompare
     #
     def blocks
       @blocks ||= begin
-        hash = init_hash(:blocks)
-        hash[:blocks] = first_page_for.blocks.map do |block|
+        first_page_for.blocks.map do |block|
           box = bounding_box(block.boundingBox)
           box.guid = block.guid
           box
         end
-        hash
       end
     end
 
