@@ -2,7 +2,7 @@ import React from 'react';
 import {
   createMuiTheme, ThemeProvider, Container, CssBaseline
 } from '@material-ui/core';
-import Ticket from 'app/components/ticket';
+import TicketImage from 'app/components/ticket-image';
 
 const theme = createMuiTheme();
 
@@ -13,7 +13,7 @@ const Main: React.FunctionComponent = () => {
       <ThemeProvider theme={ theme }>
         <Container>
           <h1>hola soy una cabecera</h1>
-          <Ticket ticketId='1' />
+          <TicketImage ticketId='1' />
         </Container>
       </ThemeProvider>
     </>

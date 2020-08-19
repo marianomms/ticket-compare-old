@@ -29,7 +29,7 @@ const mapDispatchToProps = { getTicketData };
 
 type Props = IOwnProps & IStateProps & typeof mapDispatchToProps;
 
-const Ticket: React.FunctionComponent<Props> = (props: Props) => {
+const TicketImage: React.FunctionComponent<Props> = (props: Props) => {
   debug('Render Component: Ticket');
 
   React.useEffect(() => {
@@ -59,4 +59,4 @@ const mapStateToProps = createStructuredSelector<RecordStateApp, IStateProps>({
   ticket: (state) => state.get('ticketState').ticket
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ticket);
+export default connect(mapStateToProps, mapDispatchToProps)(TicketImage);
