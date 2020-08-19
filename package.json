@@ -5,9 +5,11 @@
     "lint": "eslint app/javascript --ext js --ext jsx --ext ts --ext tsx"
   },
   "dependencies": {
+    "@date-io/moment": "1.x",
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/pickers": "^3.2.10",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -15,6 +17,7 @@
     "fontsource-roboto": "^3.0.0",
     "immutable": "^4.0.0-rc.12",
     "konva": "^7.0.0",
+    "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

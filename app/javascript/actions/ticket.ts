@@ -1,8 +1,13 @@
 import { Dispatch } from 'redux';
-import { IActionGetTicketData, IActionSetSelectionStep, IActionSetSelectionType } from 'app/types/actions-ticket';
+import {
+  IActionGetTicketData, IActionSetSelectionStep, IActionSetSelectionType, IActionSetSelectionDate
+} from 'app/types/actions-ticket';
 import { IResponseTicket } from 'app/types/response-ticket';
-import { GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE } from 'app/types/constants';
+import {
+  GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE, SET_SELECTION_DATE
+} from 'app/types/constants';
 import SelectionStep from 'app/types/enums';
+import { DateType } from '@date-io/type';
 
 const getTicketDataDispatch = (ticketId: string, data: IResponseTicket): IActionGetTicketData => {
   data.ticketId = ticketId;
@@ -30,4 +35,12 @@ const setSelectionType = (id: string, type: SelectionStep): unknown => {
   };
 };
 
-export { getTicketData, setSelectionStep, setSelectionType };
+const setSelectionDate = (date: DateType): unknown => {
+  return (dispatch: Dispatch<IActionSetSelectionDate>) => {
+    dispatch({ type: SET_SELECTION_DATE, date });
+  };
+};
+
+export {
+  getTicketData, setSelectionStep, setSelectionType, setSelectionDate
+};

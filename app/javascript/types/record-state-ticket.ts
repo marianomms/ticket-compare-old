@@ -1,4 +1,6 @@
 import { Record } from 'immutable';
+import { DateType } from '@date-io/type';
+import moment from 'moment';
 import { RecordTicket } from './record-ticket';
 import SelectionStep from './enums';
 
@@ -10,6 +12,7 @@ interface IStateTicket {
   prices: string;
   products: string;
   selectionStep: SelectionStep;
+  selectionDate: DateType;
 }
 
 const defaultState = Record<IStateTicket>({
@@ -19,7 +22,8 @@ const defaultState = Record<IStateTicket>({
   market: '',
   prices: '',
   products: '',
-  selectionStep: SelectionStep.market
+  selectionStep: SelectionStep.market,
+  selectionDate: moment()
 });
 
 /**

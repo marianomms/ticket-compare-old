@@ -9,13 +9,16 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { DatePicker } from '@material-ui/pickers';
 
 import { initDebug } from 'app/common/debug';
 import { RecordTicket } from 'app/types/record-ticket';
 import { createStructuredSelector } from 'reselect';
 import RecordStateApp from 'app/types/record-state-app';
-import { setSelectionStep } from 'app/actions/ticket';
+import { setSelectionStep, setSelectionDate } from 'app/actions/ticket';
 import SelectionStep from 'app/types/enums';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { DateType } from '@date-io/type';
 
 const debug = initDebug('components/ticket/selection/index.tsx');
 
@@ -53,9 +56,10 @@ interface IStateProps {
   ticket: RecordTicket;
   ticketId: string;
   selectionStep: SelectionStep;
+  selectionDate: DateType;
 }
 
-const mapDispatchToProps = { setSelectionStep };
+const mapDispatchToProps = { setSelectionStep, setSelectionDate };
 
 type Props = IStateProps & typeof mapDispatchToProps;
 
@@ -73,8 +77,25 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
     props.setSelectionStep(SelectionStep.market);
   };
 
+  const handleDateChange = (date: MaterialUiPickersDate) => {
+    if (!date) {
+      return;
+    }
+    props.setSelectionDate(date);
+  };
+
   return (
     <div className={ classes.root }>
+      <DatePicker
+        autoOk
+        disableFuture
+        disableToolbar
+        format='DD/MM/yyyy'
+        label='Fecha de compra'
+        onChange={ handleDateChange }
+        value={ props.selectionDate }
+        variant='inline'
+      />
       <Stepper
         activeStep={ props.selectionStep }
         orientation='vertical'
@@ -117,7 +138,8 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
 const mapStateToProps = createStructuredSelector<RecordStateApp, IStateProps>({
   ticket: (state) => state.get('ticketState').ticket,
   ticketId: (state) => state.get('ticketState').ticketId,
-  selectionStep: (state) => state.get('ticketState').selectionStep
+  selectionStep: (state) => state.get('ticketState').selectionStep,
+  selectionDate: (state) => state.get('ticketState').selectionDate
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Selection);
