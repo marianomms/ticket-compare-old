@@ -11,7 +11,7 @@ import { getTicketData } from 'app/actions/ticket';
 import BoundBoxes from './bound-boxes';
 import Selection from './selection';
 
-const debug = initDebug('components/ticket/index.tsx');
+const debug = initDebug('components/ticket');
 
 interface IOwnProps {
   /**
@@ -30,7 +30,7 @@ const mapDispatchToProps = { getTicketData };
 type Props = IOwnProps & IStateProps & typeof mapDispatchToProps;
 
 const TicketImage: React.FunctionComponent<Props> = (props: Props) => {
-  debug('Render Component: Ticket');
+  debug('Render Component: TicketImage');
 
   React.useEffect(() => {
     if (!props.loadedTicket) {
@@ -43,14 +43,16 @@ const TicketImage: React.FunctionComponent<Props> = (props: Props) => {
     return (<CircularProgress />);
   }
   return (
-    <Box display='flex'>
-      <Box>
-        <BoundBoxes />
+    <>
+      <Box display='flex'>
+        <Box>
+          <BoundBoxes />
+        </Box>
+        <Box>
+          <Selection />
+        </Box>
       </Box>
-      <Box>
-        <Selection />
-      </Box>
-    </Box>
+    </>
   );
 };
 

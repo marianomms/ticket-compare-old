@@ -8,10 +8,10 @@ import { RecordTicket } from 'app/types/record-ticket';
 import RecordStateApp from 'app/types/record-state-app';
 import { connect } from 'react-redux';
 import { setSelectionStep, setSelectionType } from 'app/actions/ticket';
-import SelectionStep from 'app/types/enums';
+import { SelectionStep } from 'app/types/enums';
 import BlockColors from 'app/types/block-colors';
 
-const debug = initDebug('components/ticket/bound-box/index.tsx');
+const debug = initDebug('components/ticket/bound-box');
 
 interface IStateProps {
   market: string;

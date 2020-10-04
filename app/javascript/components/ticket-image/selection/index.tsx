@@ -15,12 +15,12 @@ import { initDebug } from 'app/common/debug';
 import { RecordTicket } from 'app/types/record-ticket';
 import { createStructuredSelector } from 'reselect';
 import RecordStateApp from 'app/types/record-state-app';
-import { setSelectionStep, setSelectionDate } from 'app/actions/ticket';
-import SelectionStep from 'app/types/enums';
+import { setSelectionStep, setSelectionDate, setTicketView } from 'app/actions/ticket';
+import { SelectionStep, TicketView } from 'app/types/enums';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { DateType } from '@date-io/type';
 
-const debug = initDebug('components/ticket/selection/index.tsx');
+const debug = initDebug('components/ticket/selection');
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -59,7 +59,7 @@ interface IStateProps {
   selectionDate: DateType;
 }
 
-const mapDispatchToProps = { setSelectionStep, setSelectionDate };
+const mapDispatchToProps = { setSelectionStep, setSelectionDate, setTicketView };
 
 type Props = IStateProps & typeof mapDispatchToProps;
 
@@ -69,8 +69,8 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
   const classes = useStyles();
   const steps = getSteps();
 
-  const handleNext = () => {
-    props.setSelectionStep(props.selectionStep + 1);
+  const handleFinish = () => {
+    props.setTicketView(TicketView.words);
   };
 
   const handleReset = () => {
@@ -123,7 +123,7 @@ const Selection: React.FunctionComponent<Props> = (props: Props) => {
             <Button
               variant='contained'
               color='primary'
-              onClick={ handleNext }
+              onClick={ handleFinish }
               className={ classes.button }
             >
               Finalizar

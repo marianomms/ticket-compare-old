@@ -11,9 +11,7 @@ Rails.application.routes.draw do
         member do
           get 'image', to: 'tickets#image'
         end
-        resources :blocks, only: [:none] do
-          resources :words, only: [:index]
-        end
+        resources :words, only: [:index]
       end
     end
   end

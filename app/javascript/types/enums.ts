@@ -1,7 +1,10 @@
-enum SelectionStep {
+export enum SelectionStep {
   market,
   products,
   prices
 }
 
-export default SelectionStep;
+export enum TicketView {
+  image,
+  words
+}

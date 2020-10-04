@@ -1,9 +1,9 @@
 import { DateType } from '@date-io/type';
 import {
-  GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE, SET_SELECTION_DATE
+  GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE, SET_SELECTION_DATE, SET_TICKET_VIEW
 } from './constants';
 import { IResponseTicket } from './response-ticket';
-import SelectionStep from './enums';
+import { SelectionStep, TicketView } from './enums';
 
 /**
  * Redux action to be used in reducers get ticket data
@@ -40,4 +40,12 @@ export interface IActionSetSelectionType {
 export interface IActionSetSelectionDate {
   type: typeof SET_SELECTION_DATE;
   date: DateType;
+}
+
+/**
+ * Redux action to be used in reducers to set the ticket view
+ */
+export interface IActionSetTicketView {
+  type: typeof SET_TICKET_VIEW;
+  view: TicketView;
 }

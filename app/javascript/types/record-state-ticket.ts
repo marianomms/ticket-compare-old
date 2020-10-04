@@ -2,7 +2,7 @@ import { Record } from 'immutable';
 import { DateType } from '@date-io/type';
 import moment from 'moment';
 import { RecordTicket } from './record-ticket';
-import SelectionStep from './enums';
+import { SelectionStep, TicketView } from './enums';
 
 interface IStateTicket {
   loadedTicket: boolean;
@@ -13,6 +13,7 @@ interface IStateTicket {
   products: string;
   selectionStep: SelectionStep;
   selectionDate: DateType;
+  ticketView: TicketView;
 }
 
 const defaultState = Record<IStateTicket>({
@@ -23,7 +24,8 @@ const defaultState = Record<IStateTicket>({
   prices: '',
   products: '',
   selectionStep: SelectionStep.market,
-  selectionDate: moment()
+  selectionDate: moment(),
+  ticketView: TicketView.image
 });
 
 /**

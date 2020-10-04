@@ -11,11 +11,11 @@ module TicketCompare
     private_constant :SPACE, :LINE_BREAK, :EOL_SURE_SPACE
 
     #
-    # Returns a hash with the words and the coordinates for the given
+    # Returns an array with the words for the given block id
     #
-    # @param [<Type>] block_guid <description>
+    # @param [string] block_guid
     #
-    # @return [<Type>] <description>
+    # @return [Array]
     #
     def words_for(block_guid:)
       block = block_for(block_guid: block_guid)

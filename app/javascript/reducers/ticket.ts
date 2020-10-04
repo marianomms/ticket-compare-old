@@ -1,17 +1,19 @@
 import RecordStateTicket from 'app/types/record-state-ticket';
 import {
-  IActionGetTicketData, IActionSetSelectionStep, IActionSetSelectionType, IActionSetSelectionDate
+  IActionGetTicketData, IActionSetSelectionStep, IActionSetSelectionType, IActionSetSelectionDate,
+  IActionSetTicketView
 } from 'app/types/actions-ticket';
 import {
-  GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE, SET_SELECTION_DATE
+  GET_TICKET_DATA, SET_SELECTION_STEP, SET_SELECTION_TYPE, SET_SELECTION_DATE, SET_TICKET_VIEW
 } from 'app/types/constants';
 import { IResponseTicket } from 'app/types/response-ticket';
 import { RecordTicket } from 'app/types/record-ticket';
-import SelectionStep from 'app/types/enums';
+import { SelectionStep } from 'app/types/enums';
 
 const initialState = new RecordStateTicket();
 
-type TypeAction = IActionGetTicketData | IActionSetSelectionStep | IActionSetSelectionType | IActionSetSelectionDate;
+type TypeAction = IActionGetTicketData | IActionSetSelectionStep | IActionSetSelectionType | IActionSetSelectionDate
+  | IActionSetTicketView;
 
 const toRecordTicket = (data: IResponseTicket): RecordTicket => {
   return new RecordTicket(data.ticket);
@@ -39,6 +41,8 @@ export default (state: RecordStateTicket = initialState, action: TypeAction): Re
       const type = SelectionStep[action.data.type] as 'market' | 'prices' | 'products';
       return state.set(type, action.data.id);
     }
+    case SET_TICKET_VIEW:
+      return state.set('ticketView', action.view);
     default:
       return state;
   }
